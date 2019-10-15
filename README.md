@@ -81,6 +81,33 @@ class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 }
 ```
 
+#### Customizing Requests
+RxRequester gives you a full controll over any request as follows
+- [ ] Inline error handling
+- [ ] Enable/Disable loading indicators
+- [ ] Set subscribeOn Scheduler
+- [ ] Set observeOn Scheduler
+
+```kotlin
+val requestInfo = RequestInfo.Builder()
+                .inlineErrorHandling { false }
+                .showLoading(true)
+                .subscribeOnScheduler(Schedulers.io())
+                .observeOnScheduler(AndroidSchedulers.mainThread())
+                .build()
+requester.request(requestInfo) { dm.restaurantsRepo.all() }
+```
+
+Here all request options and default values
+
+| **Option** | **Type** | **Default** |
+| ------------- | ------------- | ------------- |
+| **inlineHandling**           | Lambda       | null |
+| **showLoading**              | Boolean      | true |
+| **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
+| **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
+
+
  ### License
 
 ```
