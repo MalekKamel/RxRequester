@@ -38,8 +38,21 @@ val presentable = object: Presentable {
 
        val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
-#### Handle Errors
+
+#### Server Error Contract
+RxRequester parsers server error for you and show the error automatically. Just implement `ErrorMessage`
+interface in your server error model and return the error message.
+
+```kotlin
+data class ErrorContract(private val message: String): ErrorMessage {
+    override fun errorMessage(): String {
+        return message
+    }
+}
 ```
+
+#### Handle Errors
+```kotlin
             RxRequester.nonHttpHandlers = listOf(
                     IoExceptionHandler(),
                     NoSuchElementHandler(),
