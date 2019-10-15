@@ -144,7 +144,7 @@ Here all request options and default values
 ### Best Practices
 - [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.
 - [ ] Initialize error handlers only once.
-- [ ] Dispose `RxRequester` in `ViewModel.onCleared`.
+- [ ] Dispose `RxRequester` in `ViewModel.onCleared()`.
 
 #### Look at 'sample' module for the full code.
 
