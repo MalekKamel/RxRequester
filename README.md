@@ -1,6 +1,6 @@
 # RxRequester
 A simple wrapper for RxJava that helps you:
-- [ ] Make clean RxJava requests and 
+- [ ] Make clean RxJava requests
 - [ ] Handle errors in a clean and effective way.
 
 RxRequester does all the dirty work for you!
