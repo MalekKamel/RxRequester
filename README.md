@@ -61,7 +61,7 @@ val presentable = object: Presentable {
 ```
 
 #### Server Error Contract
-RxRequester parsers server error for you and show the error automatically. Just implement `ErrorMessage`
+RxRequester parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
 ``` kotlin
@@ -116,7 +116,7 @@ class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 ```
 
 #### Customizing Requests
-RxRequester gives you the full controll over any request as follows
+RxRequester gives you the full controll over any request
 - [ ] Inline error handling
 - [ ] Enable/Disable loading indicators
 - [ ] Set subscribeOn Scheduler
@@ -132,7 +132,7 @@ val requestInfo = RequestInfo.Builder()
 requester.request(requestInfo) { dm.restaurantsRepo.all() }
 ```
 
-Here all request options and default values
+Here're all request options and default values
 
 | **Option** | **Type** | **Default** |
 | ------------- | ------------- | ------------- |
