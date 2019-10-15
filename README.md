@@ -53,7 +53,7 @@ val presentable = object: Presentable {
 
 #### Error Handlers
 Error handler is a class that extends
-`HttpExceptionHandler` or 
+`HttpExceptionHandler`
 ```kotlin
 class ServerErrorHandler : HttpExceptionHandler() {
 
@@ -67,7 +67,7 @@ class ServerErrorHandler : HttpExceptionHandler() {
 }
 ```
 
-`NonHttpExceptionHandler`
+Or `NonHttpExceptionHandler`
 ```kotin
 class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 
