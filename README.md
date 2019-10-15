@@ -150,7 +150,7 @@ This is very useful when you receive `401` indicating the token was EXPIRED. To 
 - [ ] Initialize error handlers only once.
 - [ ] Dispose `RxRequester` in `ViewModel.onCleared()`.
 
-#### Look at 'sample' module for the full code.
+#### Look at 'sample' module for the full code. For more advanced example, [Restaurants Modular Architecture](https://github.com/ShabanKamell/Restaurants)
 
 ### License
 
