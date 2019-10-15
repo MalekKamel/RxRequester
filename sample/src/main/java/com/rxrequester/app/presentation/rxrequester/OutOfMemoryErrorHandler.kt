@@ -12,6 +12,5 @@ class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 
     override fun handle(info: NonHttpExceptionInfo) {
         info.presentable.showError(R.string.no_memory_free_up_space)
-
     }
 }

@@ -6,6 +6,8 @@ import com.rxrequester.app.data.model.Restaurant
 import com.rxrequester.app.data.model.toPresentation
 import com.sha.rxrequester.RequestInfo
 import com.rxrequester.app.util.disposeBy
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,8 +19,10 @@ class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     fun restaurants(callback: (MutableList<Restaurant>) -> Unit) {
         val requestInfo = RequestInfo.Builder()
-                .showLoading(true)
                 .inlineErrorHandling { false }
+                .showLoading(true)
+                .subscribeOnScheduler(Schedulers.io())
+                .observeOnScheduler(AndroidSchedulers.mainThread())
                 .build()
         requester.request(requestInfo) { dm.restaurantsRepo.all() }
                 .subscribe {
