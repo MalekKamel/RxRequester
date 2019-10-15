@@ -39,7 +39,7 @@ allprojects {
 }
 
 dependencies {
-	        implementation 'com.github.ShabanKamell:RxRequester:x.y.z'
+        implementation 'com.github.ShabanKamell:RxRequester:x.y.z'
 }
 
 ```
