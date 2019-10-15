@@ -82,7 +82,7 @@ class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 ```
 
 #### Customizing Requests
-RxRequester gives you a full controll over any request as follows
+RxRequester gives you the full controll over any request as follows
 - [ ] Inline error handling
 - [ ] Enable/Disable loading indicators
 - [ ] Set subscribeOn Scheduler
