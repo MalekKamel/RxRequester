@@ -29,6 +29,22 @@ dm.restaurantsRepo.all()
 requester.request { dm.restaurantsRepo.all() }.subscribe { }
 ```
 
+#### Gradle:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+	        implementation 'com.github.ShabanKamell:RxRequester:x.y.z'
+}
+
+```
+(Please replace x, y and y with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/RxRequester.svg)](https://jitpack.io/#ShabanKamell/RxRequester))
+
 ### Usage
 #### Setup
 
