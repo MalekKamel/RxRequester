@@ -141,8 +141,14 @@ Here all request options and default values
 | **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
 | **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
 
+### Best Practices
+- [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.
+- [ ] Initialize error handlers only once.
+- [ ] Dispose `RxRequester` in `ViewModel.onCleared`.
 
- ### License
+#### Look at 'sample' module for the full code.
+
+### License
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
