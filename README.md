@@ -1,6 +1,28 @@
 # RxRequester
+A simple wrapper for RxJava that helps you:
+- [ ] Make clean RxJava requests and 
+- [ ] Handle errors in a clean and effective way.
 
- 
+### Before RxRequester
+```kotlin
+dm.restaurantsRepo.all()
+                .doOnSubscribe { showLoading() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .doOnNext { hideLoading() }
+                .subscribe( {
+
+                }, { error ->
+
+                })
+```
+
+### After RxRequester
+```kotlin
+requester.request { dm.restaurantsRepo.all() }.subscribe { }
+```
+
+
  ### License
 
 ```
