@@ -5,7 +5,7 @@ A simple wrapper for RxJava that helps you:
 
 RxRequester does all the dirty work for you!
 
-<img src="https://github.com/ShabanKamell/RxRequester/blob/master/blob/raw/logo.png" height="500">
+<img src="https://github.com/ShabanKamell/RxRequester/blob/master/blob/raw/logo.png" height="200">
 
 ### Before RxRequester
 
