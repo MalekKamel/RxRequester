@@ -1,14 +1,5 @@
-# Restaurants
+# RxRequester
 
-A sample for using:
- - [ ] Kotlin
- - [ ] Modular Architecture
- - [ ] MVVM
- - [ ] RxJava
- - [ ] Koin
- - [ ] KoinTest
- - [ ] Retrofit
- 
  
  ### License
 
