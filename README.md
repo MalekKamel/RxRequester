@@ -141,6 +141,10 @@ Here're all request options and default values
 | **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
 | **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
 
+### Retrying The Request
+You can retry the request in any error handler class by calling `HttpExceptionInfo.retryRequest()`.
+This is very useful when you receive `401` error, after you call the refresh token API inside the handler, you can retry the request again without interrupting the user. For more, look at `TokenExpiredHandler` in sample module.
+
 ### Best Practices
 - [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.
 - [ ] Initialize error handlers only once.
