@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="14"
-8-->/Users/mac/Desktop/android/projects/me/lib/RxRequester/common/rxrequester/src/main/AndroidManifest.xml
+8-->/Users/mac/Desktop/android/projects/me/lib/RxRequester/lib/src/main/AndroidManifest.xml
 9        android:targetSdkVersion="28" />
-9-->/Users/mac/Desktop/android/projects/me/lib/RxRequester/common/rxrequester/src/main/AndroidManifest.xml
+9-->/Users/mac/Desktop/android/projects/me/lib/RxRequester/lib/src/main/AndroidManifest.xml
 10
 11</manifest>
