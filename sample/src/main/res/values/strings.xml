@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name">Restaurants</string>
+
+    <string name="search_movie">Search a movie</string>
+    <string name="retry">Retry</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="movies">Movies</string>
+    <string name="search">Search</string>
+
+    <string name="oops_something_went_wrong">Oops, something went wrong.</string>
+    <string name="socket_timeout_exception">Connection too slow, check your internet connection.</string>
+    <string name="offline_internet">Internet connection appears to be offline.</string>
+    <string name="no_data_entered_yet">No data entered yet</string>
+    <string name="no_memory_free_up_space">You don\'t have enough memory, please free up space first.</string>
+
+
+</resources>

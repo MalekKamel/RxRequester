@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+
+    <dimen name="common_text_size">15.0sp</dimen>
+    <dimen name="common_padding">20.0dp</dimen>
+    <dimen name="margin_login_btn_start_end">40.0dp</dimen>
+    <dimen name="divider_size_vert">.5dp</dimen>
+    <dimen name="divider_gap_vert">3.0dp</dimen>
+    <dimen name="common_margin">10.0dp</dimen>
+    <dimen name="common_space">10.0dp</dimen>
+    <dimen name="height_mid">25.0dp</dimen>
+    <dimen name="width_big">170.0dp</dimen>
+    <dimen name="space_info_dialog">30.0dp</dimen>
+    <dimen name="minHeight_info_dialog">100.0dp</dimen>
+    <dimen name="common_corners">@dimen/_15sdp</dimen>
+    <dimen name="margin_top_et">15.0dp</dimen>
+    <dimen name="minHeight_dialog">100.0dp</dimen>
+    <dimen name="minWidth_dialog">400.0dp</dimen>
+
+</resources>

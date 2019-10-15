@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:textAppearance">@style/TextStyle.Button</item>
+        <item name="android:background">@drawable/btn_black_normal</item>
+        <item name="android:minWidth">88dp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:height">40dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="Button.Orange" parent="Button">
+        <item name="android:background">@drawable/bg_round_orange</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

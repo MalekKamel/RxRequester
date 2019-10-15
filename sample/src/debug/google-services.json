@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "318332400657",
+    "firebase_url": "https://schoolbus-57e15.firebaseio.com",
+    "project_id": "schoolbus-57e15",
+    "storage_bucket": "schoolbus-57e15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318332400657:android:3c206fa21d2728dc",
+        "android_client_info": {
+          "package_name": "com.school.bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318332400657-oc4a85lm0qbho6815nc9pqf671b21dbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9iM0ha-fSx7owsC9XIM3peRmCY-Sa_qA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318332400657-oc4a85lm0qbho6815nc9pqf671b21dbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318332400657:android:928910ca25eb8f72",
+        "android_client_info": {
+          "package_name": "com.school.bus.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318332400657-oc4a85lm0qbho6815nc9pqf671b21dbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9iM0ha-fSx7owsC9XIM3peRmCY-Sa_qA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318332400657-oc4a85lm0qbho6815nc9pqf671b21dbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

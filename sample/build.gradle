@@ -1,0 +1,68 @@
+apply plugin: Plugins.androidApplication
+apply from: "$rootDir/${GradleName.common}"
+
+android {
+
+    signingConfigs {
+        config {
+            keyAlias 'sha'
+            keyPassword '123456sh@b@n'
+            storeFile file('keystores/config.jks')
+            storePassword '123456sh@b@n'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.restaurant.app"
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            useProguard false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+
+            buildConfigField("String", "API_BASE_URL", "\"${Config.baseUrlProd}\"")
+        }
+
+        debug {
+            signingConfig signingConfigs.config
+            testCoverageEnabled true
+            buildConfigField("String", "API_BASE_URL", "\"${Config.baseUrlDev}\"")
+        }
+
+    }
+}
+
+dependencies {
+    implementation project(':lib')
+
+    api Deps.sdp
+    api Deps.ssp
+    api Deps.androidx_recyclerView
+    api Deps.androidx_constraintLayout
+    api Deps.androidx_cardView
+    api Deps.sha_navigator
+
+    api Deps.koin_android
+    api Deps.koin_ext
+    api Deps.koin_java
+    api Deps.koin_scope
+    api Deps.koin_viewModel
+
+    api Deps.retrofit_runtime
+    api Deps.retrofit_adapter
+    api Deps.retrofit_converter
+
+    api Deps.rx_java
+    api Deps.rx_android
+
+    api Deps.okHttp_runtime
+    api Deps.okHttp_interceptor
+
+    api Deps.picasso
+
+}

@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cloudy</item>
+        <item name="colorPrimaryDark">@color/cloudy</item>
+        <item name="colorAccent">@color/cloudy</item>
+        <item name="actionMenuTextColor">@color/cloudy</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="DialogStyle" parent="">
+        <item name="android:minWidth">@dimen/minWidth_dialog</item>
+        <item name="android:minHeight">@dimen/minHeight_dialog</item>
+        <item name="android:background">@drawable/rounded_corners</item>
+    </style>
+
+</resources>
