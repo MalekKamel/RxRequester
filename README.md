@@ -6,7 +6,7 @@ A simple wrapper for RxJava that helps you:
 RxRequester does all the dirty work for you!
 
 ### Before RxRequester
-```kotlin
+``` kotlin
 dm.restaurantsRepo.all()
                 .doOnSubscribe { showLoading() }
                 .subscribeOn(Schedulers.io())
@@ -20,7 +20,7 @@ dm.restaurantsRepo.all()
 ```
 
 ### After RxRequester
-```kotlin
+``` kotlin
 requester.request { dm.restaurantsRepo.all() }.subscribe { }
 ```
 
@@ -43,7 +43,7 @@ val presentable = object: Presentable {
 RxRequester parsers server error for you and show the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
-```kotlin
+``` kotlin
 data class ErrorContract(private val message: String): ErrorMessage {
     override fun errorMessage(): String {
         return message
@@ -67,7 +67,7 @@ data class ErrorContract(private val message: String): ErrorMessage {
 #### Error Handlers
 Error handler is a class that extends
 `HttpExceptionHandler`
-```kotlin
+``` kotlin
 class ServerErrorHandler : HttpExceptionHandler() {
 
     override fun supportedExceptions(): List<Int> {
@@ -81,7 +81,7 @@ class ServerErrorHandler : HttpExceptionHandler() {
 ```
 
 Or `NonHttpExceptionHandler`
-```kotin
+``` kotin
 class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
 
     override fun supportedThrowables(): List<Class<OutOfMemoryError>> {
@@ -101,7 +101,7 @@ RxRequester gives you the full controll over any request as follows
 - [ ] Set subscribeOn Scheduler
 - [ ] Set observeOn Scheduler
 
-```kotlin
+``` kotlin
 val requestInfo = RequestInfo.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
