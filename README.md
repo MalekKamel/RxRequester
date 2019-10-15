@@ -6,6 +6,7 @@ A simple wrapper for RxJava that helps you:
 RxRequester does all the dirty work for you!
 
 ### Before RxRequester
+
 ``` kotlin
 dm.restaurantsRepo.all()
                 .doOnSubscribe { showLoading() }
@@ -20,6 +21,7 @@ dm.restaurantsRepo.all()
 ```
 
 ### After RxRequester
+
 ``` kotlin
 requester.request { dm.restaurantsRepo.all() }.subscribe { }
 ```
