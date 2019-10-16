@@ -2,7 +2,7 @@
 
 <img src="https://github.com/ShabanKamell/RxRequester/blob/master/blob/raw/logo.png" height="200">
 
-A simple wrapper for RxJava that helps you:
+A simple wrapper for RxJava & Retrofit that helps you:
 - [ ] Make clean RxJava requests
 - [ ] Handle errors in a clean and effective way.
 
@@ -87,7 +87,7 @@ data class ErrorContract(private val message: String): ErrorMessage {
 
 #### Error Handlers
 Error handler is a class that extends
-`HttpExceptionHandler`
+`HttpExceptionHandler` which handles Retrofit exception
 ``` kotlin
 class ServerErrorHandler : HttpExceptionHandler() {
 
