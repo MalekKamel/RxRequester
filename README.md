@@ -14,7 +14,7 @@ RxRequester does all the dirty work for you!
 dm.restaurantsRepo.all()
                 .doOnSubscribe { showLoading() }
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.main())
                 .doOnNext { hideLoading() }
                 .subscribe( {
 
