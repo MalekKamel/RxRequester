@@ -33,7 +33,7 @@ internal object ExceptionProcessor {
         } catch (e: Exception) {
             e.printStackTrace()
             // Retrofit throws an exception
-            unknownException(presentable, throwable)
+            uncaughtException(presentable, throwable)
         }
 
     }
@@ -51,7 +51,7 @@ internal object ExceptionProcessor {
         val code = httpException.errorCode()
 
         if (code == null) {
-            unknownException(presentable, throwable)
+            uncaughtException(presentable, throwable)
             return
         }
 
@@ -84,7 +84,7 @@ internal object ExceptionProcessor {
         val contract = parseErrorContract(body, serverErrorContract)
 
         if (TextUtils.isEmpty(contract.errorMessage())) {
-            unknownException(presentable, throwable)
+            uncaughtException(presentable, throwable)
             return
         }
 
@@ -100,7 +100,7 @@ internal object ExceptionProcessor {
         val optHandler = RxRequester.nonHttpHandlers.firstOrNull { it.canHandle(throwable) }
 
         if (optHandler == null) {
-            unknownException(presentable, throwable)
+            uncaughtException(presentable, throwable)
             return
         }
 
@@ -114,9 +114,9 @@ internal object ExceptionProcessor {
         optHandler.handle(info)
     }
 
-    private fun unknownException(presentable: Presentable, throwable: Throwable) {
+    private fun uncaughtException(presentable: Presentable, throwable: Throwable) {
         // Default handling, show generic problem.
-        presentable.onHandleErrorFailed()
+        presentable.onHandleErrorFailed(throwable)
     }
 
     private fun parseErrorContract(body: String, serverErrorContract: Class<*>): ErrorMessage {

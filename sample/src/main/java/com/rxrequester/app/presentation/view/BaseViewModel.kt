@@ -29,7 +29,7 @@ open class BaseViewModel(val dm: DataManager)
             override fun showError(error: Int) { showErrorRes.value = error }
             override fun showLoading() { toggleLoading.value = true }
             override fun hideLoading() { toggleLoading.value = false }
-            override fun onHandleErrorFailed() { showErrorRes.value = R.string.oops_something_went_wrong }
+            override fun onHandleErrorFailed(throwable: Throwable) { showErrorRes.value = R.string.oops_something_went_wrong }
         }
 
        val requester = RxRequester.create(ErrorContract::class.java, presentable)
