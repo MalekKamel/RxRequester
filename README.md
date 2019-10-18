@@ -57,7 +57,7 @@ val presentable = object: Presentable {
    override fun onHandleErrorFailed(throwable: Throwbale) { showErrorRes.value = R.string.oops_something_went_wrong }
   }
 
-       val requester = RxRequester.create(ErrorContract::class.java, presentable)
+val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
 
 #### Server Error Contract
