@@ -91,7 +91,7 @@ Error handler is a class that extends
 ``` kotlin
 class ServerErrorHandler : HttpExceptionHandler() {
 
-    override fun supportedExceptions(): List<Int> {
+    override fun supportedErrors(): List<Int> {
         return listOf(500)
     }
 
@@ -101,11 +101,11 @@ class ServerErrorHandler : HttpExceptionHandler() {
 }
 ```
 
-Or `NonHttpExceptionHandler`
+Or `ThrowableHandler`
 ``` kotin
-class OutOfMemoryErrorHandler : NonHttpExceptionHandler<OutOfMemoryError>() {
+class OutOfMemoryErrorHandler : ThrowableHandler<OutOfMemoryError>() {
 
-    override fun supportedThrowables(): List<Class<OutOfMemoryError>> {
+    override fun supportedErrors(): List<Class<OutOfMemoryError>> {
         return listOf(OutOfMemoryError::class.java)
     }
 
@@ -123,7 +123,7 @@ RxRequester gives you the full controll over any request
 - [ ] Set observeOn Scheduler
 
 ``` kotlin
-val requestOptions = RequestInfo.Builder()
+val requestOptions = RequestOptions.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
                 .subscribeOnScheduler(Schedulers.io())
