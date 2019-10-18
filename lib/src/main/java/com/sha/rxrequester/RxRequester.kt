@@ -4,7 +4,7 @@ import com.sha.rxrequester.exception.ErrorMessage
 import com.sha.rxrequester.exception.InterceptorArgs
 import com.sha.rxrequester.exception.RxExceptionInterceptor
 import com.sha.rxrequester.exception.handler.http.HttpExceptionHandler
-import com.sha.rxrequester.exception.handler.nonhttp.NonHttpExceptionHandler
+import com.sha.rxrequester.exception.handler.throwable.ThrowableHandler
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,7 +20,7 @@ class RxRequester private constructor(
 
     companion object {
         var httpHandlers = listOf<HttpExceptionHandler>()
-        var nonHttpHandlers = listOf<NonHttpExceptionHandler<*>>()
+        var nonHttpHandlers = listOf<ThrowableHandler<*>>()
 
         fun <T: ErrorMessage> create(
                 serverErrorContract: Class<T>,
@@ -33,28 +33,28 @@ class RxRequester private constructor(
      * utility method to support Java overloading
      */
     fun <T> request(request: Request<T>): Flowable<T> {
-        return request(RequestInfo.defaultInfo(), request)
+        return request(RequestOptions.defaultInfo(), request)
     }
 
     /**
      * this function creates a new PublishProcessor and return it to the caller
      * then runs doRequest() which runs the request and publishes the result
      * to PublishProcessor.
-     * @param requestInfo options for calling the request.
+     * @param requestOptions options for calling the request.
      * @param request callback for the request.
      */
     fun <T> request(
-            requestInfo: RequestInfo = RequestInfo.defaultInfo(),
+            requestOptions: RequestOptions = RequestOptions.defaultInfo(),
             request: Request<T>
     ): Flowable<T> {
-        if (requestInfo.showLoading)
+        if (requestOptions.showLoading)
             presentable.showLoading()
 
         val ps = PublishProcessor.create<T>()
         try {
             return ps
         } finally {
-            doRequest(requestInfo, request, ps)
+            doRequest(requestOptions, request, ps)
         }
     }
 
@@ -62,25 +62,26 @@ class RxRequester private constructor(
      * this function runs the request and publishes the result to PublishProcessor which in turn
      * returns the result to the caller in case of success.
      * If any error occurred, it will be handled by handler classes.
-     * @param requestInfo options for calling the request
+     * @param requestOptions options for calling the request
      * @param request callback for the request.
      * @param ps PublishProcessor to be called after success.
      */
     private fun <T> doRequest(
-            requestInfo: RequestInfo,
+            requestOptions: RequestOptions,
             request: Request<T>,
             ps: PublishProcessor<T>
     ) {
         val args = InterceptorArgs(
+                requester = this,
                 presentable = presentable,
                 serverErrorContract = serverErrorContract,
-                inlineHandling = requestInfo.inlineHandling,
-                retryRequest = { doRequest(requestInfo, request, ps) }
+                inlineHandling = requestOptions.inlineHandling,
+                retryRequest = { doRequest(requestOptions, request, ps) }
         )
 
         Flowable.fromPublisher(request())
-                .subscribeOn(requestInfo.subscribeOnScheduler)
-                .observeOn(requestInfo.observeOnScheduler)
+                .subscribeOn(requestOptions.subscribeOnScheduler)
+                .observeOn(requestOptions.observeOnScheduler)
                 .doOnError(RxExceptionInterceptor(args))
                 .onErrorResumeNext(Flowable.empty<T>())
                 .subscribe {

@@ -9,12 +9,14 @@ import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
 
 class TokenExpiredHandler : HttpExceptionHandler() {
 
-    override fun supportedExceptions(): List<Int> {
+    override fun supportedErrors(): List<Int> {
         return listOf(401)
     }
 
     override fun handle(info: HttpExceptionInfo) {
 //        refresh token then call retryRequest method to run the request again
+//        pseudo code:
+//        info.requester.request { refreshTokenApi() }
 //        info.retryRequest()
     }
 

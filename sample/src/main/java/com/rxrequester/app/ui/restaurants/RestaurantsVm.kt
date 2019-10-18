@@ -4,7 +4,7 @@ import com.rxrequester.app.presentation.view.BaseViewModel
 import com.rxrequester.app.data.DataManager
 import com.rxrequester.app.data.model.Restaurant
 import com.rxrequester.app.data.model.toPresentation
-import com.sha.rxrequester.RequestInfo
+import com.sha.rxrequester.RequestOptions
 import com.rxrequester.app.util.disposeBy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +18,7 @@ val restaurantsModule = module {
 class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     fun restaurants(callback: (MutableList<Restaurant>) -> Unit) {
-        val requestInfo = RequestInfo.Builder()
+        val requestInfo = RequestOptions.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
                 .subscribeOnScheduler(Schedulers.io())

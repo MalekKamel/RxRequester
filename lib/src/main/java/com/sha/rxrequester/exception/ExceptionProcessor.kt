@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder
 import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.RxRequester
 import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
-import com.sha.rxrequester.exception.handler.nonhttp.NonHttpExceptionInfo
+import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import retrofit2.HttpException
 
 /**
@@ -18,16 +18,17 @@ internal object ExceptionProcessor {
             throwable: Throwable,
             presentable: Presentable,
             serverErrorContract: Class<*>,
-            retryRequest: () -> Unit
+            retryRequest: () -> Unit,
+            requester: RxRequester
             ) {
         try {
 
             if (throwable is HttpException) {
-                handleHttpException(throwable, retryRequest, serverErrorContract, presentable)
+                handleHttpException(throwable, retryRequest, serverErrorContract, presentable, requester)
                 return
             }
 
-            handleNonHttpException(throwable, retryRequest, presentable)
+            handleThrowable(throwable, retryRequest, presentable, requester)
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -41,7 +42,8 @@ internal object ExceptionProcessor {
             throwable: Throwable,
             retryRequest: () -> Unit,
             serverErrorContract: Class<*>,
-            presentable: Presentable
+            presentable: Presentable,
+            requester: RxRequester
     ) {
         val httpException = throwable as HttpException
 
@@ -64,6 +66,7 @@ internal object ExceptionProcessor {
                 throwable = throwable,
                 presentable = presentable,
                 retryRequest = retryRequest,
+                requester = requester,
                 errorBody = body,
                 code = code
         )
@@ -88,10 +91,11 @@ internal object ExceptionProcessor {
         presentable.showError(contract.errorMessage())
     }
 
-    private fun handleNonHttpException(
+    private fun handleThrowable(
             throwable: Throwable,
             retryRequest: () -> Unit,
-            presentable: Presentable
+            presentable: Presentable,
+            requester: RxRequester
     ) {
         val optHandler = RxRequester.nonHttpHandlers.firstOrNull { it.canHandle(throwable) }
 
@@ -100,11 +104,12 @@ internal object ExceptionProcessor {
             return
         }
 
-        val info = NonHttpExceptionInfo(
+        val info = ThrowableInfo(
                 throwable = throwable,
                 presentable = presentable,
-                retryRequest = retryRequest
-        )
+                retryRequest = retryRequest,
+                requester = requester
+                )
 
         optHandler.handle(info)
     }

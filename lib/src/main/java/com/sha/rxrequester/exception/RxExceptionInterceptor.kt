@@ -2,6 +2,7 @@ package com.sha.rxrequester.exception
 
 
 import com.sha.rxrequester.Presentable
+import com.sha.rxrequester.RxRequester
 import io.reactivex.functions.Consumer
 
 /**
@@ -9,6 +10,7 @@ import io.reactivex.functions.Consumer
  */
 
 data class InterceptorArgs(
+        val requester: RxRequester,
         val presentable: Presentable,
         val serverErrorContract: Class<*>,
         var inlineHandling: ((Throwable) -> Boolean)?,
@@ -29,7 +31,8 @@ class RxExceptionInterceptor(private val args: InterceptorArgs) : Consumer<Throw
                 throwable = throwable,
                 presentable = args.presentable,
                 serverErrorContract = args.serverErrorContract,
-                retryRequest =  args.retryRequest
+                retryRequest =  args.retryRequest,
+                requester = args.requester
         )
     }
 

@@ -7,7 +7,7 @@ import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
 
 class ServerErrorHandler : HttpExceptionHandler() {
 
-    override fun supportedExceptions(): List<Int> {
+    override fun supportedErrors(): List<Int> {
         return listOf(500)
     }
 

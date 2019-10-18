@@ -6,10 +6,10 @@ package com.sha.rxrequester.exception.handler.http
 
 abstract class HttpExceptionHandler {
 
-    protected abstract fun supportedExceptions(): List<Int>
+    protected abstract fun supportedErrors(): List<Int>
 
     fun canHandle(code: Int): Boolean {
-        return supportedExceptions().any { item -> code == item }
+        return supportedErrors().any { item -> code == item }
     }
 
     abstract fun handle(info: HttpExceptionInfo)
