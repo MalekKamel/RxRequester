@@ -13,19 +13,31 @@ import io.reactivex.processors.PublishProcessor
 typealias Request<T> = () -> Flowable<T>
 
 class RxRequester private constructor(
-        private val serverErrorContract: Class<*>,
+        private val serverErrorContract: Class<*>?,
         private val presentable: Presentable
 ){
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     companion object {
+        @JvmStatic
         var httpHandlers = listOf<HttpExceptionHandler>()
+        @JvmStatic
         var nonHttpHandlers = listOf<ThrowableHandler<*>>()
 
+        /**
+         * create requester instance
+         */
         fun <T: ErrorMessage> create(
-                serverErrorContract: Class<T>,
+                serverErrorContract: Class<T>? = null,
                 presentable: Presentable): RxRequester {
             return RxRequester(serverErrorContract, presentable)
+        }
+
+        /**
+         * utility to support Java overloading
+         */
+        fun create(presentable: Presentable): RxRequester {
+            return create<ErrorMessage>(null, presentable)
         }
     }
 

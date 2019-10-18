@@ -17,7 +17,7 @@ internal object ExceptionProcessor {
     fun process(
             throwable: Throwable,
             presentable: Presentable,
-            serverErrorContract: Class<*>,
+            serverErrorContract: Class<*>?,
             retryRequest: () -> Unit,
             requester: RxRequester
             ) {
@@ -41,7 +41,7 @@ internal object ExceptionProcessor {
     private fun handleHttpException(
             throwable: Throwable,
             retryRequest: () -> Unit,
-            serverErrorContract: Class<*>,
+            serverErrorContract: Class<*>?,
             presentable: Presentable,
             requester: RxRequester
     ) {
@@ -58,7 +58,10 @@ internal object ExceptionProcessor {
         val optHandler = RxRequester.httpHandlers.firstOrNull { it.canHandle(code) }
 
         if (optHandler == null) {
-            showOriginalHttpMessage(body, presentable, throwable, serverErrorContract)
+            if (serverErrorContract != null)
+                showOriginalHttpMessage(body, presentable, throwable, serverErrorContract)
+            else
+                uncaughtException(presentable, throwable)
             return
         }
 
