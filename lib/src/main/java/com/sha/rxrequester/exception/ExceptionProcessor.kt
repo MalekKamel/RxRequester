@@ -100,7 +100,7 @@ internal object ExceptionProcessor {
             presentable: Presentable,
             requester: RxRequester
     ) {
-        val optHandler = RxRequester.nonHttpHandlers.firstOrNull { it.canHandle(throwable) }
+        val optHandler = RxRequester.throwableHandlers.firstOrNull { it.canHandle(throwable) }
 
         if (optHandler == null) {
             uncaughtException(presentable, throwable)

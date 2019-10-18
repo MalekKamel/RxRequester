@@ -22,7 +22,7 @@ class RxRequester private constructor(
         @JvmStatic
         var httpHandlers = listOf<HttpExceptionHandler>()
         @JvmStatic
-        var nonHttpHandlers = listOf<ThrowableHandler<*>>()
+        var throwableHandlers = listOf<ThrowableHandler<*>>()
 
         /**
          * create requester instance

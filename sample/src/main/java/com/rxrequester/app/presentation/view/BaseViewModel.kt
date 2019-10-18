@@ -34,8 +34,8 @@ open class BaseViewModel(val dm: DataManager)
 
        val requester = RxRequester.create(ErrorContract::class.java, presentable)
 
-        if (RxRequester.nonHttpHandlers.isEmpty())
-            RxRequester.nonHttpHandlers = listOf(
+        if (RxRequester.throwableHandlers.isEmpty())
+            RxRequester.throwableHandlers = listOf(
                     IoExceptionHandler(),
                     NoSuchElementHandler(),
                     OutOfMemoryErrorHandler()
