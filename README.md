@@ -61,18 +61,6 @@ val presentable = object: Presentable {
 val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
 
-#### Server Error Contract
-RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
-interface in your server error model and return the error message.
-
-``` kotlin
-data class ErrorContract(private val message: String): ErrorMessage {
-    override fun errorMessage(): String {
-        return message
-    }
-}
-```
-
 #### Error Handling
 There're 3 types of error handlers in the library
 
@@ -139,6 +127,18 @@ The library handles errors according to this priority
 ##### 1- Resumable Handlers
 ##### 2- HTTP Handlers
 ##### 3- Throwable Handlers
+
+#### Server Error Contract
+RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
+interface in your server error model and return the error message.
+
+``` kotlin
+data class ErrorContract(private val message: String): ErrorMessage {
+    override fun errorMessage(): String {
+        return message
+    }
+}
+```
 
 #### Customizing Requests
 RxRequester gives you the full controll over any request
