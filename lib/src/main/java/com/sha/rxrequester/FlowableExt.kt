@@ -4,7 +4,7 @@ import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import io.reactivex.Flowable
 import io.reactivex.functions.Function
 
-fun <T> Flowable<T>.onErrorHandleResumable(
+internal fun <T> Flowable<T>.onErrorHandleResumable(
         toBeResumed: Flowable<T>,
         presentable: Presentable,
         requester: RxRequester

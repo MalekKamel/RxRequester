@@ -1,13 +1,8 @@
 package com.sha.rxrequester.exception
 
-
 import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.RxRequester
 import io.reactivex.functions.Consumer
-
-/**
- * Created by Mickey on 4/1/17.
- */
 
 data class InterceptorArgs(
         val requester: RxRequester,

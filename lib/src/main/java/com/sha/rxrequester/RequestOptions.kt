@@ -5,9 +5,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 data class RequestOptions(
+        /**
+         * callback for handling the error at call site
+         * @return true if the error is handled, false otherwise
+         * If the error wasn't handled(by returning false), the provided
+         * handlers will try to handle the error.
+         * If all handlers failed, [Presentable#onHandleErrorFailed(Throwable]
+         * will be called
+         */
         var inlineHandling: ((Throwable) -> Boolean)? = null,
+        /**
+         * show loading indicator
+         */
         var showLoading: Boolean = true,
+        /**
+         * subscribeOn scheduler
+         */
         var subscribeOnScheduler: Scheduler? = null,
+        /**
+         * observeOn scheduler
+         */
         var observeOnScheduler: Scheduler? = null
 ){
 

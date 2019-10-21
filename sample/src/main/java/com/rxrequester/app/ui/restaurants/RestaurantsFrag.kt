@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.rxrequester.app.R
 import com.rxrequester.app.presentation.view.BaseFrag
+import com.rxrequester.app.util.disposeBy
 import com.rxrequester.app.util.linearLayoutManager
 import kotlinx.android.synthetic.main.include_recycler_view_refreshable.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -44,9 +45,9 @@ class RestaurantsFrag : BaseFrag<RestaurantsVm>() {
     }
 
     private fun loadRestaurants() {
-        vm.restaurants {
-            rv.adapter = RestaurantsAdapter(list = it)
+        vm.restaurants().subscribe { response ->
+            rv.adapter = RestaurantsAdapter(list = response)
             rv.scheduleLayoutAnimation()
-        }
+        }.disposeBy(vm.disposables)
     }
 }

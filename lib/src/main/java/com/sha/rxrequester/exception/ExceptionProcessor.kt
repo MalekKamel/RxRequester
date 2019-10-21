@@ -8,10 +8,6 @@ import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
 import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import retrofit2.HttpException
 
-/**
- * Created by Sha on 10/9/17.
- */
-
 internal object ExceptionProcessor {
 
     fun process(

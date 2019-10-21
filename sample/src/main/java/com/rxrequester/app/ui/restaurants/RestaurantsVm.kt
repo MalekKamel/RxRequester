@@ -7,6 +7,7 @@ import com.rxrequester.app.data.model.RestaurantMapper
 import com.rxrequester.app.presentation.view.BaseViewModel
 import com.rxrequester.app.util.disposeBy
 import com.sha.rxrequester.RequestOptions
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.viewmodel.dsl.viewModel
@@ -18,18 +19,28 @@ val restaurantsModule = module {
 
 class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
-    fun restaurants(callback: (List<Restaurant>) -> Unit) {
+    fun restaurants(): Flowable<List<Restaurant>> {
+
+        val requestInfo = RequestOptions().apply {
+            inlineHandling = { true }
+            showLoading = true
+            subscribeOnScheduler = Schedulers.io()
+            observeOnScheduler = AndroidSchedulers.mainThread()
+        }
+
+        // OR
+
+        /*
         val requestInfo = RequestOptions.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
                 .subscribeOnScheduler(Schedulers.io())
                 .observeOnScheduler(AndroidSchedulers.mainThread())
                 .build()
-        requester.request(requestInfo) { dm.restaurantsRepo.all() }
-                .subscribe {
-                    val list =  ListMapperImpl(RestaurantMapper()).map(it.restaurants)
-                    callback(list)
-                }.disposeBy(disposable = disposables)
+        */
+
+       return requester.request(requestInfo) { dm.restaurantsRepo.all() }
+                .map { ListMapperImpl(RestaurantMapper()).map(it.restaurants) }
     }
 
 }
