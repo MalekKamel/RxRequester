@@ -47,7 +47,6 @@ dependencies {
 ```
 (Please replace x, y and y with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/RxRequester.svg)](https://jitpack.io/#ShabanKamell/RxRequester))
 
-## Usage
 ## Setup
 
 ``` kotlin
