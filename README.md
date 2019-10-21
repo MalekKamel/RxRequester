@@ -98,7 +98,7 @@ Of course you can apply this for any error you want.
 Handles Retrofit's HttpException
 
 ``` kotlin
-class ServerErrorHandler : HttpExceptionHandler() {
+class ServerErrorHandler: HttpExceptionHandler() {
 
     override fun supportedErrors(): List<Int> {
         return listOf(500)
