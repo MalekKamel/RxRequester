@@ -62,7 +62,7 @@ val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
 
 #### Server Error Contract
-RxRequester parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
+RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
 ``` kotlin
