@@ -102,7 +102,7 @@ class ServerErrorHandler: HttpExceptionHandler() {
 handles generic Throwables
 
 ``` kotin
-class OutOfMemoryErrorHandler : ThrowableHandler<OutOfMemoryError>() {
+class OutOfMemoryErrorHandler: ThrowableHandler<OutOfMemoryError>() {
 
     override fun supportedErrors(): List<Class<OutOfMemoryError>> {
         return listOf(OutOfMemoryError::class.java)
