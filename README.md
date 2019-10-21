@@ -72,22 +72,30 @@ data class ErrorContract(private val message: String): ErrorMessage {
 }
 ```
 
-#### Handle Errors
-```kotlin
-            RxRequester.nonHttpHandlers = listOf(
-                    IoExceptionHandler(),
-                    NoSuchElementHandler(),
-                    OutOfMemoryErrorHandler()
-            )
-            RxRequester.httpHandlers = listOf(
-                    TokenExpiredHandler(),
-                    ServerErrorHandler()
-            )
-```
+#### Error Handling
+There're 3 types of error handlers in the library
 
-#### Error Handlers
-Error handler is a class that extends
-`HttpExceptionHandler` which handles Retrofit exception
+##### 1- Resumable Handler
+There're cases where you want to handle the error and resume the current request as normal. Resumable handler provides the easiest solution for this problem!
+Imagine you received `401 token expired` error and you want to refresh the token then resume the original request. This can be done as easy as like this!
+
+```kotlin
+class TokenExpiredHandler: ResumableHandler() {
+     // check if the error code is 401
+    override fun canHandle(info: ThrowableInfo): Boolean {
+        return info.asHttpException()?.errorCode() == 401
+    }
+    // retrun the API that refreshes the token
+    override fun handle(info: ThrowableInfo): Flowable<Any> {
+        return info.requester.request{ ServiceApi.refreshToken() }
+    }
+}
+```
+Of course you can apply this for any error you want.
+
+##### 2- Retrofit Http Handler
+Handles Retrofit's HttpException
+
 ``` kotlin
 class ServerErrorHandler : HttpExceptionHandler() {
 
@@ -101,7 +109,9 @@ class ServerErrorHandler : HttpExceptionHandler() {
 }
 ```
 
-Or `ThrowableHandler`
+##### 3- Throwable Handler
+handles generic Throwables
+
 ``` kotin
 class OutOfMemoryErrorHandler : ThrowableHandler<OutOfMemoryError>() {
 
@@ -109,11 +119,25 @@ class OutOfMemoryErrorHandler : ThrowableHandler<OutOfMemoryError>() {
         return listOf(OutOfMemoryError::class.java)
     }
 
-    override fun handle(info: NonHttpExceptionInfo) {
+    override fun handle(info: ThrowableInfo) {
         info.presentable.showError(R.string.no_memory_free_up_space)
     }
 }
 ```
+
+## How to provide handlers?
+
+```kotlin
+      RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+      RxRequester.httpHandlers =      listOf(ServerErrorHandler())
+      RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
+```
+
+#### Error Handlers Priority
+The library handles errors according to this priority
+##### 1- Resumable Handlers
+##### 2- HTTP Handlers
+##### 3- Throwable Handlers
 
 #### Customizing Requests
 RxRequester gives you the full controll over any request
