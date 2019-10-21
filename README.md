@@ -5,6 +5,7 @@
 A simple wrapper for RxJava & Retrofit that helps you:
 - [ ] Make clean RxJava requests
 - [ ] Handle errors in a clean and effective way.
+- [ ] Resume the current request after errors like token expired error.
 
 RxRequester does all the dirty work for you!
 
