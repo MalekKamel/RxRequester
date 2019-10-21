@@ -138,6 +138,8 @@ data class ErrorContract(private val message: String): ErrorMessage {
         return message
     }
 }
+// Pass the contract
+val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
 
 ## Customizing Requests
