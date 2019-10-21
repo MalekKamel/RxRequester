@@ -18,17 +18,16 @@ internal object ExceptionProcessor {
             throwable: Throwable,
             presentable: Presentable,
             serverErrorContract: Class<*>?,
-            retryRequest: () -> Unit,
             requester: RxRequester
             ) {
         try {
 
             if (throwable is HttpException) {
-                handleHttpException(throwable, retryRequest, serverErrorContract, presentable, requester)
+                handleHttpException(throwable, serverErrorContract, presentable, requester)
                 return
             }
 
-            handleThrowable(throwable, retryRequest, presentable, requester)
+            handleThrowable(throwable, presentable, requester)
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -40,7 +39,6 @@ internal object ExceptionProcessor {
 
     private fun handleHttpException(
             throwable: Throwable,
-            retryRequest: () -> Unit,
             serverErrorContract: Class<*>?,
             presentable: Presentable,
             requester: RxRequester
@@ -68,7 +66,6 @@ internal object ExceptionProcessor {
         val info = HttpExceptionInfo(
                 throwable = throwable,
                 presentable = presentable,
-                retryRequest = retryRequest,
                 requester = requester,
                 errorBody = body,
                 code = code
@@ -96,7 +93,6 @@ internal object ExceptionProcessor {
 
     private fun handleThrowable(
             throwable: Throwable,
-            retryRequest: () -> Unit,
             presentable: Presentable,
             requester: RxRequester
     ) {
@@ -110,7 +106,6 @@ internal object ExceptionProcessor {
         val info = ThrowableInfo(
                 throwable = throwable,
                 presentable = presentable,
-                retryRequest = retryRequest,
                 requester = requester
                 )
 

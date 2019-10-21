@@ -39,4 +39,9 @@ dependencies {
     api Deps.rx_java
     api Deps.rx_android
 
+    testImplementation TestDeps.mockito_core
+    testImplementation TestDeps.mockito_kotlin
+    testImplementation TestDeps.test_junit
+    testImplementation TestDeps.androidx_core_testing
+
 }

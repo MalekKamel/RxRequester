@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 
 abstract class BaseRecyclerAdapter<M, VH
-: BaseViewHolder<M>>(var list: MutableList<M>) : RecyclerView.Adapter<VH>(){
+: BaseViewHolder<M>>(var list: List<M>) : RecyclerView.Adapter<VH>(){
 
     protected var isLoadingAdded: Boolean = false
 
@@ -40,11 +40,5 @@ abstract class BaseRecyclerAdapter<M, VH
     fun list(): List<M> {
         return list
     }
-
-    fun clear() {
-        list.clear()
-        notifyDataSetChanged()
-    }
-
 
 }

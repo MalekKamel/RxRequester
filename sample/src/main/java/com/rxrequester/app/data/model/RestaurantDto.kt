@@ -1,6 +1,7 @@
 package com.rxrequester.app.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.rxrequester.app.data.mapper.Mapper
 
 data class RestaurantDto(
         var name: String,
@@ -9,16 +10,14 @@ data class RestaurantDto(
         @SerializedName(value = "image_url")
         var poster: String
 
-) {
-        fun toRestaurant(): Restaurant {
+)
+
+class RestaurantMapper: Mapper<RestaurantDto, Restaurant> {
+        override fun map(input: RestaurantDto): Restaurant {
                 return Restaurant(
-                        name = name,
-                        city = city,
-                        poster = poster
+                        name = input.name,
+                        city = input.city,
+                        poster = input.poster
                 )
         }
-}
-
-fun List<RestaurantDto>.toPresentation(): MutableList<Restaurant> {
-        return map { it.toRestaurant() }.toMutableList()
 }

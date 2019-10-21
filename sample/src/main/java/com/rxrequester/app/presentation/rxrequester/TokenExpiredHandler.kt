@@ -1,23 +1,19 @@
 package com.rxrequester.app.presentation.rxrequester
 
-import com.sha.rxrequester.exception.handler.http.HttpExceptionHandler
-import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
+import com.sha.rxrequester.exception.errorCode
+import com.sha.rxrequester.exception.handler.resumable.ResumableHandler
+import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
+import io.reactivex.Flowable
+import retrofit2.HttpException
 
-/**
- * Created by Sha on 10/9/17.
- */
+class TokenExpiredHandler: ResumableHandler<HttpException>() {
 
-class TokenExpiredHandler : HttpExceptionHandler() {
-
-    override fun supportedErrors(): List<Int> {
-        return listOf(401)
+    override fun canHandle(info: ThrowableInfo): Boolean {
+        return info.asHttpException()?.errorCode() == 401
     }
 
-    override fun handle(info: HttpExceptionInfo) {
-//        refresh token then call retryRequest method to run the request again
-//        pseudo code:
-//        info.requester.request { refreshTokenApi() }
-//        info.retryRequest()
+    override fun handle(info: ThrowableInfo): Flowable<Any> {
+        return Flowable.just<Any>("Handled token expired!")
     }
 
 }

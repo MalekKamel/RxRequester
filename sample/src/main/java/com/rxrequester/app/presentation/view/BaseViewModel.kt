@@ -7,6 +7,7 @@ import com.rxrequester.app.data.DataManager
 import com.rxrequester.app.presentation.rxrequester.*
 import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.RxRequester
+import com.rxrequester.app.presentation.rxrequester.TokenExpiredHandler
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel(val dm: DataManager)
@@ -24,6 +25,17 @@ open class BaseViewModel(val dm: DataManager)
     }
 
     private fun setupRequester(): RxRequester {
+
+        if (RxRequester.throwableHandlers.isEmpty()) {
+            RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+            RxRequester.httpHandlers = listOf(ServerErrorHandler())
+            RxRequester.throwableHandlers = listOf(
+                    IoExceptionHandler(),
+                    NoSuchElementHandler(),
+                    OutOfMemoryErrorHandler()
+            )
+        }
+
         val presentable = object: Presentable {
             override fun showError(error: String) { showError.value = error }
             override fun showError(error: Int) { showErrorRes.value = error }
@@ -32,25 +44,11 @@ open class BaseViewModel(val dm: DataManager)
             override fun onHandleErrorFailed(throwable: Throwable) { showErrorRes.value = R.string.oops_something_went_wrong }
         }
 
-       val requester = RxRequester.create(ErrorContract::class.java, presentable)
-
-        if (RxRequester.throwableHandlers.isEmpty())
-            RxRequester.throwableHandlers = listOf(
-                    IoExceptionHandler(),
-                    NoSuchElementHandler(),
-                    OutOfMemoryErrorHandler()
-            )
-        if (RxRequester.httpHandlers.isEmpty())
-            RxRequester.httpHandlers = listOf(
-                    TokenExpiredHandler(),
-                    ServerErrorHandler()
-            )
-        return requester
+        return RxRequester.create(ErrorContract::class.java, presentable)
     }
 
     override fun onCleared() {
         disposables.dispose()
-        requester.dispose()
         super.onCleared()
     }
 

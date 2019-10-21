@@ -7,9 +7,17 @@ import io.reactivex.schedulers.Schedulers
 data class RequestOptions(
         var inlineHandling: ((Throwable) -> Boolean)? = null,
         var showLoading: Boolean = true,
-        var subscribeOnScheduler: Scheduler = Schedulers.io(),
-        var observeOnScheduler: Scheduler = AndroidSchedulers.mainThread()
+        var subscribeOnScheduler: Scheduler? = null,
+        var observeOnScheduler: Scheduler? = null
 ){
+
+    fun subscribeOnScheduler(): Scheduler {
+        return subscribeOnScheduler ?: Schedulers.io()
+    }
+
+    fun observeOnScheduler(): Scheduler {
+        return observeOnScheduler ?: AndroidSchedulers.mainThread()
+    }
 
     class Builder {
         private val info = RequestOptions()

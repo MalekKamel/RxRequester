@@ -13,7 +13,7 @@ import com.rxrequester.app.data.model.Restaurant
  * Created by Sha on 4/20/17.
  */
 
-class RestaurantsAdapter(list: MutableList<Restaurant>) : BaseRecyclerAdapter<Restaurant, RestaurantsAdapter.Vh>(list) {
+class RestaurantsAdapter(list: List<Restaurant>) : BaseRecyclerAdapter<Restaurant, RestaurantsAdapter.Vh>(list) {
 
     override fun getViewHolder(viewGroup: ViewGroup, viewType: Int): Vh {
         return Vh(viewGroup)
