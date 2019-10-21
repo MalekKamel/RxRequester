@@ -47,8 +47,8 @@ dependencies {
 ```
 (Please replace x, y and y with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/RxRequester.svg)](https://jitpack.io/#ShabanKamell/RxRequester))
 
-### Usage
-#### Setup
+## Usage
+## Setup
 
 ``` kotlin
 val presentable = object: Presentable {
@@ -62,7 +62,7 @@ val presentable = object: Presentable {
 val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ```
 
-#### Error Handling
+## Error Handling
 There're 3 types of error handlers in the library
 
 ##### 1- Resumable Handler
@@ -123,13 +123,13 @@ class OutOfMemoryErrorHandler : ThrowableHandler<OutOfMemoryError>() {
       RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
 ```
 
-#### Error Handlers Priority
+## Error Handlers Priority
 The library handles errors according to this priority
 ##### 1- Resumable Handlers
 ##### 2- HTTP Handlers
 ##### 3- Throwable Handlers
 
-#### Server Error Contract
+## Server Error Contract
 RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
@@ -141,7 +141,7 @@ data class ErrorContract(private val message: String): ErrorMessage {
 }
 ```
 
-#### Customizing Requests
+## Customizing Requests
 RxRequester gives you the full controll over any request
 - [ ] Inline error handling
 - [ ] Enable/Disable loading indicators
@@ -167,14 +167,9 @@ Here're all request options and default values
 | **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
 | **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
 
-### Retrying The Request
-You can retry the request in any error handler class by calling `HttpExceptionInfo.retryRequest()`.
-This is very useful when you receive `401` indicating the token was EXPIRED. To fix the issue, call the refresh token API inside the handler, then retry the request again without interrupting the user. For more, look at `TokenExpiredHandler` in sample module.
-
 ### Best Practices
 - [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.
-- [ ] Initialize error handlers only once.
-- [ ] Dispose `RxRequester` in `ViewModel.onCleared()`.
+- [ ] Initialize error handlers only once. You can initialize then Application class as they are static properties.
 
 #### Look at 'sample' module for the full code. For more advanced example, [Restaurants Modular Architecture](https://github.com/ShabanKamell/Restaurants)
 
