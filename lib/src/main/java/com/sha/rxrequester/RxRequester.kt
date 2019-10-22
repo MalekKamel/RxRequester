@@ -29,7 +29,7 @@ class RxRequester private constructor(
         @JvmStatic
         var throwableHandlers = listOf<ThrowableHandler<*>>()
         @JvmStatic
-        var resumableHandlers = listOf<ResumableHandler<*>>()
+        var resumableHandlers = listOf<ResumableHandler>()
 
         /**
          * create requester instance
