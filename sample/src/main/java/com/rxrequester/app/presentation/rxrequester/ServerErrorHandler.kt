@@ -14,5 +14,4 @@ class ServerErrorHandler : HttpExceptionHandler() {
     override fun handle(info: HttpExceptionInfo) {
         info.presentable.showError(R.string.oops_something_went_wrong)
     }
-
 }

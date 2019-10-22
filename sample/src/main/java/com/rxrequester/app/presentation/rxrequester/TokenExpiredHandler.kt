@@ -4,9 +4,8 @@ import com.sha.rxrequester.exception.errorCode
 import com.sha.rxrequester.exception.handler.resumable.ResumableHandler
 import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import io.reactivex.Flowable
-import retrofit2.HttpException
 
-class TokenExpiredHandler: ResumableHandler<HttpException>() {
+class TokenExpiredHandler: ResumableHandler() {
 
     override fun canHandle(info: ThrowableInfo): Boolean {
         return info.asHttpException()?.errorCode() == 401

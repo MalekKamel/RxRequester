@@ -3,7 +3,7 @@ package com.sha.rxrequester.exception.handler.resumable
 import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import io.reactivex.Flowable
 
-abstract class ResumableHandler<T: Throwable> {
+abstract class ResumableHandler {
 
     /**
      * checks if the handler can handle the error
