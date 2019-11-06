@@ -25,6 +25,9 @@ class RxRequester private constructor(
 ){
     companion object {
         @JvmStatic
+        var defaultSchedulerProvider: SchedulerProvider? = null
+
+        @JvmStatic
         var httpHandlers = listOf<HttpExceptionHandler>()
         @JvmStatic
         var throwableHandlers = listOf<ThrowableHandler<*>>()

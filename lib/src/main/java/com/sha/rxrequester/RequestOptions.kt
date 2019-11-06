@@ -1,8 +1,6 @@
 package com.sha.rxrequester
 
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 data class RequestOptions(
         /**
@@ -29,11 +27,11 @@ data class RequestOptions(
 ){
 
     fun subscribeOnScheduler(): Scheduler {
-        return subscribeOnScheduler ?: Schedulers.io()
+        return subscribeOnScheduler ?: defaultSubscriber().subscribeOn
     }
 
     fun observeOnScheduler(): Scheduler {
-        return observeOnScheduler ?: AndroidSchedulers.mainThread()
+        return observeOnScheduler ?: defaultSubscriber().observeOn
     }
 
     class Builder {

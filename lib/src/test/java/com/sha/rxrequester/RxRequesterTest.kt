@@ -24,8 +24,6 @@ class RxRequesterTest {
     private lateinit var presentable: Presentable
     lateinit var rxRequester: RxRequester
 
-    private lateinit var options: RequestOptions
-
     @Before
     fun setup() {
         presentable = mock()
@@ -34,20 +32,12 @@ class RxRequesterTest {
         RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
         RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
 
-        options = RequestOptions().apply {
-            observeOnScheduler = Schedulers.trampoline()
-            subscribeOnScheduler = Schedulers.trampoline()
-        }
+        RxRequester.defaultSchedulerProvider = TestSchedulerProvider
     }
 
     @Test
     fun request_succeedsAndLoadingToggles() {
-
-        val request: () -> Flowable<Foo> =  {
-            Flowable.just(Foo(foo = "foo"))
-        }
-
-        rxRequester.request(options, request)
+        rxRequester.request { Flowable.just(Foo(foo = "foo")) }
                 .test()
                 .assertNoErrors()
                 .assertValueAt(0, Foo(foo = "foo"))
@@ -63,11 +53,7 @@ class RxRequesterTest {
         val response: Response<Int> = Response.error(401, body)
         val httpException = HttpException(response)
 
-        val request: () -> Flowable<Foo> =  {
-            Flowable.error<Foo>(httpException)
-        }
-
-        rxRequester.request(options, request)
+        rxRequester.request { Flowable.error<Foo>(httpException) }
                 .test()
                 .assertNoErrors()
     }
@@ -78,11 +64,7 @@ class RxRequesterTest {
         val response: Response<Int> = Response.error(403, body)
         val httpException = HttpException(response)
 
-        val request: () -> Flowable<Foo> =  {
-            Flowable.error<Foo>(httpException)
-        }
-
-        rxRequester.request(options, request)
+        rxRequester.request { Flowable.error<Foo>(httpException) }
                 .test()
                 .assertNoErrors()
         verify(presentable).onHandleErrorFailed(httpException)
