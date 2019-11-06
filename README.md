@@ -45,7 +45,7 @@ dependencies {
 }
 
 ```
-(Please replace x, y and y with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/RxRequester.svg)](https://jitpack.io/#ShabanKamell/RxRequester))
+(Please replace x, y and z with the latest version numbers:  [![](https://jitpack.io/v/ShabanKamell/RxRequester.svg)](https://jitpack.io/#ShabanKamell/RxRequester))
 
 ## Setup
 
@@ -64,7 +64,7 @@ val requester = RxRequester.create(ErrorContract::class.java, presentable)
 ## Error Handling
 There're 3 types of error handlers in the library
 
-##### 1- Resumable Handler
+### 1- Resumable Handler
 There're cases where you want to handle the error and resume the current request as normal. Resumable handler provides the easiest solution for this problem!
 Imagine you received `401 token expired` error and you want to refresh the token then resume the original request. This can be done as easy as like this!
 
@@ -82,7 +82,7 @@ class TokenExpiredHandler: ResumableHandler() {
 ```
 Of course you can apply this for any error you want.
 
-##### 2- Retrofit Http Handler
+### 2- Retrofit Http Handler
 Handles Retrofit's HttpException
 
 ``` kotlin
@@ -98,7 +98,7 @@ class ServerErrorHandler: HttpExceptionHandler() {
 }
 ```
 
-##### 3- Throwable Handler
+### 3- Throwable Handler
 handles generic Throwables
 
 ``` kotin
@@ -127,6 +127,8 @@ The library handles errors according to this priority
 ##### 1- Resumable Handlers
 ##### 2- HTTP Handlers
 ##### 3- Throwable Handlers
+
+The library first asks Resumable handlers to handle the error, if can't handle it will be passed to HTTP handlers, if can't handle, the error will be passed to Throwable hanldlers. If no handler can handle the error, it will be passed to `Presentable.onHandleErrorFailed(Throwable)`
 
 ## Server Error Contract
 RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
