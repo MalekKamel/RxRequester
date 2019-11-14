@@ -131,7 +131,7 @@ The library handles errors according to this priority
 The library first asks Resumable handlers to handle the error, if can't handle it will be passed to HTTP handlers, if can't handle, the error will be passed to Throwable hanldlers. If no handler can handle the error, it will be passed to `Presentable.onHandleErrorFailed(Throwable)`
 
 ## Server Error Contract
-RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
+RxRequester optionally parses server error for you and shows the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
 ``` kotlin
