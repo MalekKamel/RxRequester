@@ -174,12 +174,12 @@ RxRequester gives you the full controll over any request
 
 Here're all request options and default values
 
-| **Option** | **Type** | **Default** |
-| ------------- | ------------- | ------------- |
-| **inlineHandling**           | Lambda       | null |
-| **showLoading**              | Boolean      | true |
-| **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
-| **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
+|          **Option**          |         **Type**          |          **Default**           |
+| ---------------------------- | --------------------------|------------------------------- |
+| **inlineHandling**           | ((Throwable) -> Boolean)? | null                           |
+| **showLoading**              | Boolean                   | true                           |
+| **subscribeOnScheduler**     | Scheduler                 | Schedulers.io()                |
+| **observeOnScheduler**       | Scheduler                 | AndroidSchedulers.mainThread() |
 
 ### Best Practices
 - [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.
