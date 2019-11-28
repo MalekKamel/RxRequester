@@ -4,9 +4,9 @@
 
 A wrapper for RxJava abstracts away all those nasty details you don't really care about in most requests and provides default configurations for schedulers, loading indicators, and error handling. 
 
-Using RxRequester you can:
+Using **RxRequester** you can:
+- [ ] Make clean RxSwift requests.
 - [ ] Inline & Global error handling.
-- [ ] Resume the current request after errors like token expired error.
 - [ ] Toggle loading indicators easily.
 
 ### Before RxRequester
