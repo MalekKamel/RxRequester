@@ -151,23 +151,12 @@ RxRequester gives you the full controll over any request
 - [ ] Set observeOn Scheduler
 
 ``` kotlin
-        val requestInfo = RequestOptions().apply {
-            inlineHandling = { true }
-            showLoading = true
-            subscribeOnScheduler = Schedulers.io()
-            observeOnScheduler = AndroidSchedulers.mainThread()
-        }
-
-        // OR
-
-        /*
-        val requestInfo = RequestOptions.Builder()
-                .inlineErrorHandling { false }
-                .showLoading(true)
-                .subscribeOnScheduler(Schedulers.io())
-                .observeOnScheduler(AndroidSchedulers.mainThread())
-                .build()
-        */
+      val requestInfo = RequestOptions.Builder()
+              .inlineErrorHandling { false }
+              .showLoading(true)
+              .subscribeOnScheduler(Schedulers.io())
+              .observeOnScheduler(AndroidSchedulers.mainThread())
+              .build()
 
      requester.request(requestOptions) { dm.restaurantsRepo.all() }
 ```
