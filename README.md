@@ -116,9 +116,9 @@ class OutOfMemoryErrorHandler: ThrowableHandler<OutOfMemoryError>() {
 ## How to provide handlers?
 
 ```kotlin
-  RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
-  RxRequester.httpHandlers =      listOf(ServerErrorHandler())
-  RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
+ RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+ RxRequester.httpHandlers =      listOf(ServerErrorHandler())
+ RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
 ```
 
 ## Error Handlers Priority
@@ -151,14 +151,14 @@ RxRequester gives you the full controll over any request
 - [ ] Set observeOn Scheduler
 
 ``` kotlin
-  val requestInfo = RequestOptions.Builder()
-          .inlineErrorHandling { false }
-          .showLoading(true)
-          .subscribeOnScheduler(Schedulers.io())
-          .observeOnScheduler(AndroidSchedulers.mainThread())
-          .build()
+ val requestInfo = RequestOptions.Builder()
+         .inlineErrorHandling { false }
+         .showLoading(true)
+         .subscribeOnScheduler(Schedulers.io())
+         .observeOnScheduler(AndroidSchedulers.mainThread())
+         .build()
 
-  requester.request(requestOptions) { dm.restaurantsRepo.all() }
+ requester.request(requestOptions) { dm.restaurantsRepo.all() }
 ```
 
 Here're all request options and default values
