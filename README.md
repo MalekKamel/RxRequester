@@ -12,7 +12,7 @@ Using **RxRequester** you can:
 ### Before RxRequester
 
 ``` kotlin
-dm.restaurantsRepo.all()
+restaurantsRepo.all()
                 .doOnSubscribe { showLoading() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.main())
@@ -27,7 +27,7 @@ dm.restaurantsRepo.all()
 ### After RxRequester
 
 ``` kotlin
-requester.request { dm.restaurantsRepo.all() }.subscribe { }
+requester.request { restaurantsRepo.all() }.subscribe { }
 ```
 
 #### Gradle:
