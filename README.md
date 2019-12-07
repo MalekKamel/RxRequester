@@ -1,3 +1,6 @@
+RxReqeuster
+==============
+
 <img src="https://github.com/ShabanKamell/RxRequester/blob/master/blob/raw/logo.png" height="200">
 
 A wrapper for RxJava abstracts away all those nasty details you don't really care about in most requests and provides default configurations for schedulers, loading indicators, and error handling. 
