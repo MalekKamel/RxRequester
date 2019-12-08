@@ -1,11 +1,10 @@
 package com.rxrequester.app.ui.restaurants
 
 import com.rxrequester.app.data.DataManager
-import com.rxrequester.app.data.mapper.ListMapperImpl
 import com.rxrequester.app.data.model.Restaurant
 import com.rxrequester.app.data.model.RestaurantMapper
 import com.rxrequester.app.presentation.view.BaseViewModel
-import com.rxrequester.app.util.disposeBy
+import com.sha.modelmapper.ListMapper
 import com.sha.rxrequester.RequestOptions
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,17 +29,15 @@ class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
         // OR (proper for Java)
 
-        /*
-        val options = RequestOptions.Builder()
+         val optionsWithBuilder = RequestOptions.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
                 .subscribeOnScheduler(Schedulers.io())
                 .observeOnScheduler(AndroidSchedulers.mainThread())
                 .build()
-        */
 
        return requester.request(options) { dm.restaurantsRepo.all() }
-                .map { ListMapperImpl(RestaurantMapper()).map(it.restaurants) }
+                .map { ListMapper(RestaurantMapper()).map(it.restaurants) }
     }
 
 }

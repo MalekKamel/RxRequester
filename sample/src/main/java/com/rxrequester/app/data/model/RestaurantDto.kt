@@ -1,7 +1,7 @@
 package com.rxrequester.app.data.model
 
 import com.google.gson.annotations.SerializedName
-import com.rxrequester.app.data.mapper.Mapper
+import com.sha.modelmapper.Mapper
 
 data class RestaurantDto(
         var name: String,
