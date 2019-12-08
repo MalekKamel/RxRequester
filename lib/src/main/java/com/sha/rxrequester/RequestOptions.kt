@@ -63,9 +63,7 @@ data class RequestOptions(
     }
 
     companion object {
-        fun defaultOptions(): RequestOptions {
-            return Builder().build()
-        }
+        fun defaultOptions(): RequestOptions = Builder().build()
 
         fun create(block: RequestOptions.() -> Unit): RequestOptions{
             return RequestOptions().apply { block() }
