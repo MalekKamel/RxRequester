@@ -51,14 +51,24 @@ dependencies {
 
 ``` kotlin
 val presentable = object: Presentable {
-   override fun showError(error: String) { showError.value = error }
-   override fun showError(error: Int) { showErrorRes.value = error }
-   override fun showLoading() { toggleLoading.value = true }
-   override fun hideLoading() { toggleLoading.value = false }
-   override fun onHandleErrorFailed(throwable: Throwbale) { showErrorRes.value = R.string.oops_something_went_wrong }
-  }
+    override fun showError(error: String) { showError.value = error }
+    override fun showError(error: Int) { showErrorRes.value = error }
+    override fun showLoading() { toggleLoading.value = true }
+    override fun hideLoading() { toggleLoading.value = false }
+    override fun onHandleErrorFailed(throwable: Throwable) { showErrorRes.value = R.string.oops_something_went_wrong }
+}
 
-val requester = RxRequester.create(ErrorContract::class.java, presentable)
+return RxRequester.create(presentable) {
+    resumableHandlers = listOf(TokenExpiredHandler())
+    httpHandlers = listOf(ServerErrorHandler())
+    throwableHandlers = listOf(IoExceptionHandler(), NoSuchElementHandler(), OutOfMemoryErrorHandler())
+    serverErrorContract = ErrorContract::class.java
+}
+
+// Or provide error handlers this way:
+ RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+ RxRequester.httpHandlers =      listOf(ServerErrorHandler())
+ RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
 ```
 
 ## Error Handling
@@ -72,10 +82,10 @@ Imagine you received `401 token expired` error and you want to refresh the token
 class TokenExpiredHandler: ResumableHandler() {
      // check if the error code is 401
     override fun canHandle(info: ThrowableInfo): Boolean {
-        return info.asHttpException()?.errorCode() == 401
+        return (throwable as? HttpException)?.errorCode() == 401
     }
     // retrun the API that refreshes the token
-    override fun handle(info: ThrowableInfo): Flowable<Any> {
+    override fun handle(throwable: Throwable, presentable: Presentable): Flowable<Any> {
         return info.requester.request{ ServiceApi.refreshToken() }
     }
 }
@@ -92,8 +102,8 @@ class ServerErrorHandler: HttpExceptionHandler() {
         return listOf(500)
     }
 
-    override fun handle(info: HttpExceptionInfo) {
-        info.presentable.showError(R.string.oops_something_went_wrong)
+    override fun handle(throwable: Throwable, presentable: Presentable, errorCode: Int, errorBody: String) {
+        presentable.showError(R.string.oops_something_went_wrong)
     }
 }
 ```
@@ -108,18 +118,10 @@ class OutOfMemoryErrorHandler: ThrowableHandler<OutOfMemoryError>() {
         return listOf(OutOfMemoryError::class.java)
     }
 
-    override fun handle(info: ThrowableInfo) {
-        info.presentable.showError(R.string.no_memory_free_up_space)
+    override fun handle(throwable: Throwable, presentable: Presentable) {
+        presentable.showError(R.string.no_memory_free_up_space)
     }
 }
-```
-
-## How to provide handlers?
-
-```kotlin
- RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
- RxRequester.httpHandlers =      listOf(ServerErrorHandler())
- RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
 ```
 
 ## Error Handlers Priority
