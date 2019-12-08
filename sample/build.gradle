@@ -64,5 +64,6 @@ dependencies {
     api Deps.okHttp_interceptor
 
     api Deps.picasso
+    api Deps.modelMapper
 
 }

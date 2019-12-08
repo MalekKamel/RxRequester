@@ -50,7 +50,7 @@ class RxRequester private constructor(
      */
     @JvmOverloads
     fun <T> request(
-            requestOptions: RequestOptions = RequestOptions.defaultInfo(),
+            requestOptions: RequestOptions = RequestOptions.defaultOptions(),
             request: Request<T>
     ): Flowable<T> {
 

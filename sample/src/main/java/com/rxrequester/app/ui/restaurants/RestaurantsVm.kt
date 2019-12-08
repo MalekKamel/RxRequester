@@ -21,17 +21,17 @@ class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
 
     fun restaurants(): Flowable<List<Restaurant>> {
 
-        val requestInfo = RequestOptions().apply {
+        val options = RequestOptions.create {
             inlineHandling = { true }
             showLoading = true
             subscribeOnScheduler = Schedulers.io()
             observeOnScheduler = AndroidSchedulers.mainThread()
         }
 
-        // OR
+        // OR (proper for Java)
 
         /*
-        val requestInfo = RequestOptions.Builder()
+        val options = RequestOptions.Builder()
                 .inlineErrorHandling { false }
                 .showLoading(true)
                 .subscribeOnScheduler(Schedulers.io())
@@ -39,7 +39,7 @@ class RestaurantsVm(dataManager: DataManager) : BaseViewModel(dataManager) {
                 .build()
         */
 
-       return requester.request(requestInfo) { dm.restaurantsRepo.all() }
+       return requester.request(options) { dm.restaurantsRepo.all() }
                 .map { ListMapperImpl(RestaurantMapper()).map(it.restaurants) }
     }
 

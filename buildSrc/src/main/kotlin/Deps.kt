@@ -51,9 +51,11 @@ object Versions {
     const val androidx_test_ext_junit_ktx = "1.1.2-alpha02"
     const val androidx_test_rules = "1.3.0-alpha02"
     const val mockito_kotlin = "2.2.0"
+    const val modelMapper = "0.1.0"
 }
 
 object Deps {
+    const val modelMapper = "com.github.ShabanKamell:ModelMapper:${Versions.modelMapper}"
 
     // <editor-fold desc="test">
     const val test_junit = "junit:junit:${Versions.test_junit}"
