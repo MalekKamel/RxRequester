@@ -11,48 +11,38 @@ import org.junit.Test
 class ExceptionInterceptorTest {
     private lateinit var presentable: Presentable
     lateinit var rxRequester: RxRequester
+    lateinit var interceptor: ExceptionInterceptor
 
     @Before
     fun setup() {
         presentable = mock()
         rxRequester = RxRequester.create(presentable)
         RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
-    }
 
-    @Test
-    fun accept_outOfMemoryError() {
         val args = InterceptorArgs(
-                requester = rxRequester,
                 presentable = presentable,
                 serverErrorContract = null,
                 inlineHandling = { false }
         )
-        ExceptionInterceptor(args).accept(OutOfMemoryError())
+        interceptor = ExceptionInterceptor(args)
+    }
+
+    @Test
+    fun accept_outOfMemoryError() {
+        interceptor.accept(OutOfMemoryError())
         verify(presentable).showError("OutOfMemoryError")
     }
 
     @Test
     fun accept_inlineHandlingIsNull() {
-        val args = InterceptorArgs(
-                requester = rxRequester,
-                presentable = presentable,
-                serverErrorContract = null,
-                inlineHandling = null
-        )
-        ExceptionInterceptor(args).accept(OutOfMemoryError())
+        interceptor.accept(OutOfMemoryError())
 
         verify(presentable).showError("OutOfMemoryError")
     }
 
     @Test
     fun accept_invokeRetryRequest() {
-        val args = InterceptorArgs(
-                requester = rxRequester,
-                presentable = presentable,
-                serverErrorContract = null,
-                inlineHandling = null
-        )
-        ExceptionInterceptor(args).accept(OutOfMemoryError())
+        interceptor.accept(OutOfMemoryError())
 
         verify(presentable).showError("OutOfMemoryError")
     }
@@ -61,7 +51,6 @@ class ExceptionInterceptorTest {
     fun accept_inlineHandlingReturnTrue() {
         var isInlineHandlingInvoked = false
         val args = InterceptorArgs(
-                requester = rxRequester,
                 presentable = presentable,
                 serverErrorContract = null,
                 inlineHandling = {

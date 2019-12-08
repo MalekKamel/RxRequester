@@ -1,19 +1,19 @@
-# RxRequester
+RxReqeuster
+==============
 
 <img src="https://github.com/ShabanKamell/RxRequester/blob/master/blob/raw/logo.png" height="200">
 
-A simple wrapper for RxJava & Retrofit that helps you:
+A wrapper for RxJava abstracts away all those nasty details you don't really care about in most requests and provides default configurations for schedulers, loading indicators, and error handling. 
+
+Using **RxRequester** you can:
 - [ ] Make clean RxJava requests.
 - [ ] Inline & Global error handling.
-- [ ] Resume the current request after errors like token expired error.
-- [ ] Easy control of loading indicators.
-
-RxRequester does all the dirty work for you!
+- [ ] Toggle loading indicators easily.
 
 ### Before RxRequester
 
 ``` kotlin
-dm.restaurantsRepo.all()
+restaurantsRepo.all()
                 .doOnSubscribe { showLoading() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.main())
@@ -28,7 +28,7 @@ dm.restaurantsRepo.all()
 ### After RxRequester
 
 ``` kotlin
-requester.request { dm.restaurantsRepo.all() }.subscribe { }
+requester.request { restaurantsRepo.all() }.subscribe { }
 ```
 
 #### Gradle:
@@ -117,9 +117,9 @@ class OutOfMemoryErrorHandler: ThrowableHandler<OutOfMemoryError>() {
 ## How to provide handlers?
 
 ```kotlin
-      RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
-      RxRequester.httpHandlers =      listOf(ServerErrorHandler())
-      RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
+ RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+ RxRequester.httpHandlers =      listOf(ServerErrorHandler())
+ RxRequester.throwableHandlers = listOf(OutOfMemoryErrorHandler())
 ```
 
 ## Error Handlers Priority
@@ -131,7 +131,7 @@ The library handles errors according to this priority
 The library first asks Resumable handlers to handle the error, if can't handle it will be passed to HTTP handlers, if can't handle, the error will be passed to Throwable hanldlers. If no handler can handle the error, it will be passed to `Presentable.onHandleErrorFailed(Throwable)`
 
 ## Server Error Contract
-RxRequester optionally parsers server error for you and shows the error automatically. Just implement `ErrorMessage`
+RxRequester optionally parses server error for you and shows the error automatically. Just implement `ErrorMessage`
 interface in your server error model and return the error message.
 
 ``` kotlin
@@ -152,35 +152,24 @@ RxRequester gives you the full controll over any request
 - [ ] Set observeOn Scheduler
 
 ``` kotlin
-        val requestInfo = RequestOptions().apply {
-            inlineHandling = { true }
-            showLoading = true
-            subscribeOnScheduler = Schedulers.io()
-            observeOnScheduler = AndroidSchedulers.mainThread()
-        }
+ val requestInfo = RequestOptions.Builder()
+         .inlineErrorHandling { false }
+         .showLoading(true)
+         .subscribeOnScheduler(Schedulers.io())
+         .observeOnScheduler(AndroidSchedulers.mainThread())
+         .build()
 
-        // OR
-
-        /*
-        val requestInfo = RequestOptions.Builder()
-                .inlineErrorHandling { false }
-                .showLoading(true)
-                .subscribeOnScheduler(Schedulers.io())
-                .observeOnScheduler(AndroidSchedulers.mainThread())
-                .build()
-        */
-
-     requester.request(requestOptions) { dm.restaurantsRepo.all() }
+ requester.request(requestOptions) { dm.restaurantsRepo.all() }
 ```
 
 Here're all request options and default values
 
-| **Option** | **Type** | **Default** |
-| ------------- | ------------- | ------------- |
-| **inlineHandling**           | Lambda       | null |
-| **showLoading**              | Boolean      | true |
-| **subscribeOnScheduler**     | Scheduler    | Schedulers.io() |
-| **observeOnScheduler**       | Scheduler    | AndroidSchedulers.mainThread() |
+|          **Option**          |         **Type**          |          **Default**           |
+| ---------------------------- | --------------------------|------------------------------- |
+| **inlineHandling**           | ((Throwable) -> Boolean)? | null                           |
+| **showLoading**              | Boolean                   | true                           |
+| **subscribeOnScheduler**     | Scheduler                 | Schedulers.io()                |
+| **observeOnScheduler**       | Scheduler                 | AndroidSchedulers.mainThread() |
 
 ### Best Practices
 - [ ] Setup `RxRequester` only once in `BaseViewModel` and reuse in the whole app.

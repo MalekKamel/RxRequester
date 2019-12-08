@@ -66,7 +66,6 @@ class RxRequester private constructor(
         if (requestOptions.showLoading) presentable.showLoading()
 
         val args = InterceptorArgs(
-                requester = this,
                 presentable = presentable,
                 serverErrorContract = serverErrorContract,
                 inlineHandling = requestOptions.inlineHandling

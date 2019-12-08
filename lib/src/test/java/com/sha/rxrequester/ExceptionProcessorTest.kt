@@ -30,8 +30,7 @@ class ExceptionProcessorTest {
         ExceptionProcessor.process(
                 throwable = OutOfMemoryError(),
                 presentable = presentable,
-                serverErrorContract = null,
-                requester = rxRequester
+                serverErrorContract = null
         )
 
         verify(presentable).showError("OutOfMemoryError")
@@ -47,8 +46,7 @@ class ExceptionProcessorTest {
         ExceptionProcessor.process(
                 throwable = httpException,
                 presentable = presentable,
-                serverErrorContract = null,
-                requester = rxRequester
+                serverErrorContract = null
         )
 
         verify(presentable).showError("500 server error")
@@ -65,8 +63,7 @@ class ExceptionProcessorTest {
         ExceptionProcessor.process(
                 throwable = httpException,
                 presentable = presentable,
-                serverErrorContract = null,
-                requester = rxRequester
+                serverErrorContract = null
         )
 
         verify(presentable).onHandleErrorFailed(httpException)

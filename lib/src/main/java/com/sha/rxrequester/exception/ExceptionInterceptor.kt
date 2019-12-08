@@ -5,7 +5,6 @@ import com.sha.rxrequester.RxRequester
 import io.reactivex.functions.Consumer
 
 data class InterceptorArgs(
-        val requester: RxRequester,
         val presentable: Presentable,
         val serverErrorContract: Class<*>?,
         var inlineHandling: ((Throwable) -> Boolean)?
