@@ -1,8 +1,8 @@
 package com.rxrequester.app.presentation.rxrequester
 
 import com.rxrequester.app.R
+import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.exception.handler.throwable.ThrowableHandler
-import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import okhttp3.internal.http2.ConnectionShutdownException
 import java.io.IOException
 import java.net.SocketTimeoutException
@@ -18,23 +18,23 @@ class IoExceptionHandler : ThrowableHandler<IOException>() {
         return listOf(IOException::class.java, SocketTimeoutException::class.java)
     }
 
-    override fun handle(info: ThrowableInfo) {
+    override fun handle(throwable: Throwable, presentable: Presentable) {
 
-        if (info.throwable is SocketTimeoutException) {
-            info.presentable.showError(R.string.socket_timeout_exception)
+        if (throwable is SocketTimeoutException) {
+            presentable.showError(R.string.socket_timeout_exception)
             return
         }
 
-        if (info.throwable is UnknownHostException) {
-            info.presentable.showError(R.string.offline_internet)
+        if (throwable is UnknownHostException) {
+            presentable.showError(R.string.offline_internet)
             return
         }
 
-        if (info.throwable is ConnectionShutdownException) {
-            info.presentable.showError(R.string.socket_timeout_exception)
+        if (throwable is ConnectionShutdownException) {
+            presentable.showError(R.string.socket_timeout_exception)
             return
         }
 
-        info.presentable.showError(R.string.offline_internet)
+        presentable.showError(R.string.offline_internet)
     }
 }

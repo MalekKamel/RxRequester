@@ -1,5 +1,7 @@
 package com.sha.rxrequester.exception.handler.http
 
+import com.sha.rxrequester.Presentable
+
 /**
  * Created by Sha on 10/9/17.
  */
@@ -22,6 +24,6 @@ abstract class HttpExceptionHandler {
     /**
      * handle the error
      */
-    abstract fun handle(info: HttpExceptionInfo)
+    abstract fun handle(throwable: Throwable, presentable: Presentable, errorCode: Int, errorBody: String)
 
 }

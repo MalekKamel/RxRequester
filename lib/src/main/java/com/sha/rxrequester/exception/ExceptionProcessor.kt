@@ -4,8 +4,6 @@ import android.text.TextUtils
 import com.google.gson.GsonBuilder
 import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.RxRequester
-import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
-import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
 import retrofit2.HttpException
 
 internal object ExceptionProcessor {
@@ -13,17 +11,16 @@ internal object ExceptionProcessor {
     fun process(
             throwable: Throwable,
             presentable: Presentable,
-            serverErrorContract: Class<*>?,
-            requester: RxRequester
+            serverErrorContract: Class<*>?
             ) {
         try {
 
             if (throwable is HttpException) {
-                handleHttpException(throwable, serverErrorContract, presentable, requester)
+                handleHttpException(throwable, serverErrorContract, presentable)
                 return
             }
 
-            handleThrowable(throwable, presentable, requester)
+            handleThrowable(throwable, presentable)
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -36,8 +33,7 @@ internal object ExceptionProcessor {
     private fun handleHttpException(
             throwable: Throwable,
             serverErrorContract: Class<*>?,
-            presentable: Presentable,
-            requester: RxRequester
+            presentable: Presentable
     ) {
         val httpException = throwable as HttpException
 
@@ -59,15 +55,7 @@ internal object ExceptionProcessor {
             return
         }
 
-        val info = HttpExceptionInfo(
-                throwable = throwable,
-                presentable = presentable,
-                requester = requester,
-                errorBody = body,
-                code = code
-        )
-
-        optHandler.handle(info)
+        optHandler.handle(throwable, presentable, code, body)
 
     }
 
@@ -89,8 +77,7 @@ internal object ExceptionProcessor {
 
     private fun handleThrowable(
             throwable: Throwable,
-            presentable: Presentable,
-            requester: RxRequester
+            presentable: Presentable
     ) {
         val optHandler = RxRequester.throwableHandlers.firstOrNull { it.canHandle(throwable) }
 
@@ -99,13 +86,7 @@ internal object ExceptionProcessor {
             return
         }
 
-        val info = ThrowableInfo(
-                throwable = throwable,
-                presentable = presentable,
-                requester = requester
-                )
-
-        optHandler.handle(info)
+        optHandler.handle(throwable, presentable)
     }
 
     private fun uncaughtException(presentable: Presentable, throwable: Throwable) {

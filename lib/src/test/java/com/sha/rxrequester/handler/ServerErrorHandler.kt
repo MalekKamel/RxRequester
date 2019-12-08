@@ -1,7 +1,7 @@
 package com.sha.rxrequester.handler
 
+import com.sha.rxrequester.Presentable
 import com.sha.rxrequester.exception.handler.http.HttpExceptionHandler
-import com.sha.rxrequester.exception.handler.http.HttpExceptionInfo
 
 
 class ServerErrorHandler : HttpExceptionHandler() {
@@ -10,8 +10,8 @@ class ServerErrorHandler : HttpExceptionHandler() {
         return listOf(500)
     }
 
-    override fun handle(info: HttpExceptionInfo) {
-        info.presentable.showError("500 server error")
+    override fun handle(throwable: Throwable, presentable: Presentable, errorCode: Int, errorBody: String) {
+        presentable.showError("500 server error")
     }
 
 }

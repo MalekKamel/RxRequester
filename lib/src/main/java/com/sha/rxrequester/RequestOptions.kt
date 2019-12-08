@@ -26,11 +26,11 @@ data class RequestOptions(
         var observeOnScheduler: Scheduler? = null
 ){
 
-    fun subscribeOnScheduler(): Scheduler {
+    internal fun subscribeOnScheduler(): Scheduler {
         return subscribeOnScheduler ?: defaultSubscriber().subscribeOn
     }
 
-    fun observeOnScheduler(): Scheduler {
+    internal fun observeOnScheduler(): Scheduler {
         return observeOnScheduler ?: defaultSubscriber().observeOn
     }
 

@@ -1,5 +1,7 @@
 package com.sha.rxrequester.exception.handler.throwable
 
+import com.sha.rxrequester.Presentable
+
 /**
  * Created by Sha on 10/9/17.
  */
@@ -22,7 +24,7 @@ abstract class ThrowableHandler<T: Throwable> {
     /**
      * handle the error
      */
-    abstract fun handle(info: ThrowableInfo)
+    abstract fun handle(throwable: Throwable, presentable: Presentable)
 
 
 }

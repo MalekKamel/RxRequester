@@ -1,6 +1,6 @@
 package com.sha.rxrequester.exception.handler.resumable
 
-import com.sha.rxrequester.exception.handler.throwable.ThrowableInfo
+import com.sha.rxrequester.Presentable
 import io.reactivex.Flowable
 
 abstract class ResumableHandler {
@@ -9,7 +9,7 @@ abstract class ResumableHandler {
      * checks if the handler can handle the error
      * @return true if can handle
      */
-    abstract fun canHandle(info: ThrowableInfo): Boolean
+    abstract fun canHandle(throwable: Throwable, presentable: Presentable): Boolean
 
     /**
      * handle the error
@@ -18,6 +18,6 @@ abstract class ResumableHandler {
      * For example, when receive 401 toke expired error, return the flowable that
      * refreshes the token here to be invoked and retry the original request again.
      */
-    abstract fun handle(info: ThrowableInfo): Flowable<Any>
+    abstract fun handle(throwable: Throwable, presentable: Presentable): Flowable<Any>
 
 }

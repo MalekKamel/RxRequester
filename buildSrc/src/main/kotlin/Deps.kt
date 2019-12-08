@@ -1,7 +1,7 @@
 
 object Versions {
 
-    const val androidx_appCompat = "1.0.0-beta01"
+    const val androidx_appCompat = "1.1.0"
     const val androidx_core = "1.0.0-beta01"
     const val androidx_recyclerView = "1.0.0"
     const val materialDesign = "1.0.0-rc01"

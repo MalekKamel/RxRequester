@@ -52,9 +52,8 @@ class RxRequester private constructor(
     }
 
     /**
-     * this function creates a new PublishProcessor and return it to the caller
-     * then runs doRequest() which runs the request and publishes the result
-     * to PublishProcessor.
+     * wraps an RxJava request to apply schedulers, error handlers, and
+     * request options.
      * @param requestOptions options for calling the request.
      * @param request callback for the request.
      */
@@ -76,7 +75,7 @@ class RxRequester private constructor(
         return request()
                 .subscribeOn(requestOptions.subscribeOnScheduler())
                 .observeOn(requestOptions.observeOnScheduler())
-                .onErrorHandleResumable(request(), presentable, this)
+                .onErrorHandleResumable(request(), presentable, requestOptions)
                 .doOnError(ExceptionInterceptor(args))
                 .onErrorResumeNext(Flowable.empty<T>())
                 .observeOn(requestOptions.observeOnScheduler())

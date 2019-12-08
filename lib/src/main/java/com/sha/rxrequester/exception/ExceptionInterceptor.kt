@@ -18,14 +18,12 @@ class ExceptionInterceptor(private val args: InterceptorArgs) : Consumer<Throwab
         args.presentable.hideLoading()
 
         // inline handling of the error
-        if (args.inlineHandling != null && args.inlineHandling!!(throwable))
-            return
+        if (args.inlineHandling?.invoke(throwable) == true) return
 
         ExceptionProcessor.process(
                 throwable = throwable,
                 presentable = args.presentable,
-                serverErrorContract = args.serverErrorContract,
-                requester = args.requester
+                serverErrorContract = args.serverErrorContract
         )
     }
 

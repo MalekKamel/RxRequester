@@ -6,7 +6,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.sha.rxrequester.handler.OutOfMemoryErrorHandler
 import com.sha.rxrequester.handler.TokenExpiredHandler
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.Before
