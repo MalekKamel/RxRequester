@@ -1,7 +1,6 @@
 package com.sha.rxrequester.exception
 
 import com.sha.rxrequester.Presentable
-import com.sha.rxrequester.RxRequester
 import io.reactivex.functions.Consumer
 
 data class InterceptorArgs(

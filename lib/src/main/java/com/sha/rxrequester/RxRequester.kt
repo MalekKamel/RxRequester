@@ -7,15 +7,6 @@ import com.sha.rxrequester.exception.handler.http.HttpExceptionHandler
 import com.sha.rxrequester.exception.handler.resumable.ResumableHandler
 import com.sha.rxrequester.exception.handler.throwable.ThrowableHandler
 import io.reactivex.Flowable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.processors.PublishProcessor
-import okhttp3.MediaType
-import okhttp3.ResponseBody
-import org.reactivestreams.Subscriber
-import retrofit2.HttpException
-import retrofit2.Response
 
 typealias Request<T> = () -> Flowable<T>
 
