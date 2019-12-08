@@ -40,6 +40,22 @@ class RxRequester private constructor(
         fun create(presentable: Presentable): RxRequester {
             return create<ErrorMessage>(null, presentable)
         }
+
+        fun create(presentable: Presentable, block: Builder.() -> Unit): RxRequester {
+            val builder = Builder().apply { block() }
+            httpHandlers = builder.httpHandlers
+            throwableHandlers = builder.throwableHandlers
+            resumableHandlers = builder.resumableHandlers
+            return RxRequester(builder.serverErrorContract, presentable)
+        }
+
+        class Builder {
+            var httpHandlers = listOf<HttpExceptionHandler>()
+            var throwableHandlers = listOf<ThrowableHandler<*>>()
+            var resumableHandlers = listOf<ResumableHandler>()
+            var serverErrorContract: Class<*>? = null
+        }
+
     }
 
     /**

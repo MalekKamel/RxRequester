@@ -47,6 +47,23 @@ open class BaseViewModel(val dm: DataManager)
         return RxRequester.create(ErrorContract::class.java, presentable)
     }
 
+    private fun setupRequesterUsingDsl(): RxRequester {
+        val presentable = object: Presentable {
+            override fun showError(error: String) { showError.value = error }
+            override fun showError(error: Int) { showErrorRes.value = error }
+            override fun showLoading() { toggleLoading.value = true }
+            override fun hideLoading() { toggleLoading.value = false }
+            override fun onHandleErrorFailed(throwable: Throwable) { showErrorRes.value = R.string.oops_something_went_wrong }
+        }
+
+        return RxRequester.create(presentable) {
+            resumableHandlers = listOf(TokenExpiredHandler())
+            httpHandlers = listOf(ServerErrorHandler())
+            throwableHandlers = listOf(IoExceptionHandler(), NoSuchElementHandler(), OutOfMemoryErrorHandler())
+            serverErrorContract = ErrorContract::class.java
+        }
+    }
+
     override fun onCleared() {
         disposables.dispose()
         super.onCleared()
