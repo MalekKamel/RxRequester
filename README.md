@@ -51,11 +51,11 @@ dependencies {
 
 ``` kotlin
 val presentable = object: Presentable {
-    override fun showError(error: String) { showError.value = error }
-    override fun showError(error: Int) { showErrorRes.value = error }
-    override fun showLoading() { toggleLoading.value = true }
-    override fun hideLoading() { toggleLoading.value = false }
-    override fun onHandleErrorFailed(throwable: Throwable) { showErrorRes.value = R.string.oops_something_went_wrong }
+    override fun showError(error: String) { .. }
+    override fun showError(error: Int) { .. }
+    override fun showLoading() { .. }
+    override fun hideLoading() { .. }
+    override fun onHandleErrorFailed(throwable: Throwable) { .. }
 }
 
 return RxRequester.create(presentable) {
