@@ -20,21 +20,17 @@ open class BaseViewModel(val dm: DataManager)
     val showError = MutableLiveData<String>()
     val showErrorRes = MutableLiveData<Int>()
 
-    init {
-        requester = setupRequester()
-    }
+    init { requester = setupRequester() }
 
     private fun setupRequester(): RxRequester {
 
-        if (RxRequester.throwableHandlers.isEmpty()) {
-            RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
-            RxRequester.httpHandlers = listOf(ServerErrorHandler())
-            RxRequester.throwableHandlers = listOf(
-                    IoExceptionHandler(),
-                    NoSuchElementHandler(),
-                    OutOfMemoryErrorHandler()
-            )
-        }
+        RxRequester.resumableHandlers = listOf(TokenExpiredHandler())
+        RxRequester.httpHandlers = listOf(ServerErrorHandler())
+        RxRequester.throwableHandlers = listOf(
+                IoExceptionHandler(),
+                NoSuchElementHandler(),
+                OutOfMemoryErrorHandler()
+        )
 
         val presentable = object: Presentable {
             override fun showError(error: String) { showError.value = error }
