@@ -59,10 +59,10 @@ val presentable = object: Presentable {
 }
 
 RxRequester.create(presentable) {
-resumableHandlers = listOf(TokenExpiredHandler())
-httpHandlers = listOf(ServerErrorHandler())
-throwableHandlers = listOf(IoExceptionHandler(), NoSuchElementHandler(), OutOfMemoryErrorHandler())
-serverErrorContract = ErrorContract::class.java
+  resumableHandlers = listOf(TokenExpiredHandler())
+  httpHandlers = listOf(ServerErrorHandler())
+  throwableHandlers = listOf(IoExceptionHandler(), NoSuchElementHandler(), OutOfMemoryErrorHandler())
+  serverErrorContract = ErrorContract::class.java
 }
 
 // Or provide error handlers this way:
